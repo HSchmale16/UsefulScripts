@@ -12,7 +12,7 @@ $srcEXT  = ".cpp";   # src file extension
 # ==========================================================
 
 # Get author and date information
-$author = `git config author.name`;
+$author = `git config user.name`;
 ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
 sprintf($dtime, "%02d/%02d/%04d", $mon, $mday, $year);
 
