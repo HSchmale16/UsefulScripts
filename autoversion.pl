@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/perl
 # Autoversion Script
 # A script to make an autoversion header
 #
