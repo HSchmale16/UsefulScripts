@@ -12,6 +12,7 @@ $srcEXT  = ".cpp";   # src file extension
 # ==========================================================
 
 # Get author and date information
+$author = `git config author.name`;
 ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
 sprintf($dtime, "%02d/%02d/%04d", $mon, $mday, $year);
 
@@ -36,7 +37,9 @@ $hpp =
 
 # Construct the cpp file contents
 $cpp =
-    "/**\\file $cname.$srcEXT"; 
+    "/**\\file $cname.$srcEXT\n".
+    " * \\author $author\n".
+    " */";
 
 # open(HEADER, "include/$cname.h") or die "Failed to open header for writing";
 # open(SRC, "src/$cname.cpp") or die "Failed to open source for writting";
