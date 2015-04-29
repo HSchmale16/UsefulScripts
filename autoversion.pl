@@ -12,24 +12,25 @@
 #   version.h: $(SRC)
 #       @./autoversion.pl
 
+use strict;
+use warnings;
+
 my $commit = `git rev-list HEAD --count`;
 my $myd    = `date +%m/%d/%Y`;
 my $vh     = "version.h";
+my $major  = 0;
+my $minor  = 0;
+my $build  = 0;
+my $rev    = 0;
 
 # get the original file contents and version information
 if(-e $vh){
-    # load the version header and parse it
-}else{
-    # must be a new project or an idiot deleted the version.h and screwed
-    # up the versioning system
-    my $major = 0;
-    my $minor = 0;
-    my $build = 0;
-    my $rev   = 0;
+# load the version header and parse it
+
 }
 
 # Prepare the contents
-$con =
+my $con =
     "#ifndef VERSION_H_INC\n".
     "#define VERSION_H_INC\n".
     "const int  MAJOR        = $major;\n".
@@ -40,6 +41,5 @@ $con =
     "const char VERS_STR[]   = \"$major.$minor.$build.$rev\";\n".
     "const char BUILD_DATE[] = \"$myd;\"\n".
     "#endif // VERSION_H_INC\n";
-    
+
 # Write it out
-open(OUT, '>', $vh) or die "Failed to open file: $!";
