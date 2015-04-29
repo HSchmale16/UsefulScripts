@@ -30,6 +30,7 @@ $hpp =
     "class $cname"."{\n".
     "public:\n".
     "    $cname"."();\n".
+    "    ~$cname"."();\n".
     "protected:\n".
     "private:\n".
     "};\n".
