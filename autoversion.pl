@@ -15,6 +15,13 @@
 use strict;
 use warnings;
 
+# You can declare your versioning scheme here
+use constant{
+    MAX_MINOR   => 10,     # Max value of minor before incrementing major
+    MAX_REV     => 10000,  # Max Value of rev before incrementing minor
+    MAX_REV_ADD => 100     # Max value to add to rev each time called
+};
+
 my $commit = `git rev-list HEAD --count`;
 my $myd    = `date +%m/%d/%Y`;
 my $vh     = "version.h";
@@ -25,8 +32,42 @@ my $rev    = 0;
 
 # get the original file contents and version information
 if(-e $vh){
-# load the version header and parse it
-
+    # load the version header and parse it
+    open FILE, "< $vh") or die "Can't open file for reading: $!\n";
+    @lines = <FILE>;
+    close FILE;
+    for($a = 0; $a < scalar(@lines); $a++){
+        if($lines[$a] =~ /MAJOR/){
+            $major = $lines[$a];
+            $major =~ s/[^0-9]//g;
+            continue; # skip other compares because each line only has one match
+        }
+        if($lines[$a] =~ /MINOR/){
+            $minor = $lines[$a];
+            $minor =~ s/[^0-9]//g;
+            continue;
+        }
+        if($lines[$a] =~ /REVISION/){
+            $rev = $lines[$a];
+            $rev =~ s/[^0-9]//g;
+            continue;
+        }
+        if($lines[$a] =~ /BUILD/){
+            $build = $lines[$a];
+            $build =~ s/[^0-9]//g;
+            continue;
+        }
+    }
+    # Increment Versions
+    $rev += int(rand(MAX_REV_ADD));
+    if($rev > MAX_REV){
+        $rev = 0;
+        $minor++;
+        if($minor > MAX_MINOR){
+            $major++;
+            $minor = 0;
+        }
+    }
 }
 
 # Prepare the contents
@@ -43,3 +84,6 @@ my $con =
     "#endif // VERSION_H_INC\n";
 
 # Write it out
+open(FILE, "> $vh") or die "Couldn't open version header for writing: $!";
+print <FILE> "$con";
+close FILE;
