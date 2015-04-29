@@ -33,32 +33,29 @@ my $rev    = 0;
 # get the original file contents and version information
 if(-e $vh){
     # load the version header and parse it
-    open FILE, "< $vh") or die "Can't open file for reading: $!\n";
-    @lines = <FILE>;
+    open( FILE, "<$vh") or die "Can't open file for reading: $!\n";
+    my @lines = <FILE>;
     close FILE;
     for($a = 0; $a < scalar(@lines); $a++){
         if($lines[$a] =~ /MAJOR/){
             $major = $lines[$a];
             $major =~ s/[^0-9]//g;
-            continue; # skip other compares because each line only has one match
         }
         if($lines[$a] =~ /MINOR/){
             $minor = $lines[$a];
             $minor =~ s/[^0-9]//g;
-            continue;
         }
         if($lines[$a] =~ /REVISION/){
             $rev = $lines[$a];
             $rev =~ s/[^0-9]//g;
-            continue;
         }
-        if($lines[$a] =~ /BUILD/){
+        if($lines[$a] =~ /BUILD_COUNT/){
             $build = $lines[$a];
             $build =~ s/[^0-9]//g;
-            continue;
         }
     }
     # Increment Versions
+    $build += 1;
     $rev += int(rand(MAX_REV_ADD));
     if($rev > MAX_REV){
         $rev = 0;
@@ -71,19 +68,20 @@ if(-e $vh){
 }
 
 # Prepare the contents
+$commit =~ s/\n//g;
 my $con =
     "#ifndef VERSION_H_INC\n".
     "#define VERSION_H_INC\n".
     "const int  MAJOR        = $major;\n".
     "const int  MINOR        = $minor;\n".
-    "const int  REVISION     = $rev\n;".
+    "const int  REVISION     = $rev;\n".
     "const int  COMMIT       = $commit;\n".
-    "const int  BUILD        = $build;\n".
+    "const int  BUILD_COUNT  = $build;\n".
     "const char VERS_STR[]   = \"$major.$minor.$build.$rev\";\n".
     "const char BUILD_DATE[] = \"$myd;\"\n".
     "#endif // VERSION_H_INC\n";
 
 # Write it out
 open(FILE, "> $vh") or die "Couldn't open version header for writing: $!";
-print <FILE> "$con";
+print FILE "$con";
 close FILE;
