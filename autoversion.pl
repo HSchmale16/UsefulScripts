@@ -78,7 +78,7 @@ my $con =
     "const int  COMMIT       = $commit;\n".
     "const int  BUILD_COUNT  = $build;\n".
     "const char VERS_STR[]   = \"$major.$minor.$build.$rev\";\n".
-    "const char BUILD_DATE[] = \"$myd;\"\n".
+    "const char BUILD_DATE[] = \"$myd\";\n".
     "#endif // VERSION_H_INC\n";
 
 # Write it out
