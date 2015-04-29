@@ -69,6 +69,7 @@ if(-e $vh){
 
 # Prepare the contents
 $commit =~ s/\n//g;
+$myd    =~ s/\n//g;
 my $con =
     "#ifndef VERSION_H_INC\n".
     "#define VERSION_H_INC\n".
