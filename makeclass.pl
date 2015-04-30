@@ -1,14 +1,21 @@
 #!/usr/bin/perl
 # Prepares a class of that name with a default ctor with seperate
 # declaration and implemenation. With a doxyen documentation block at
-# top of each file
+# top of each file.
+#
+# Note: This script does not update your makefile. You need to do that
+#       yourself.
 #
 # Henry J Schmale
 # April 27, 2015
 
 # ==========================================================
-$headEXT = ".h";     # header file extension
-$srcEXT  = ".cpp";   # src file extension
+# Config
+# ==========================================================
+$headDir = "include/";  # Directory to place class headers in
+$srcDir  = "src/";      # Directory to place class source in
+$headEXT = ".h";        # header file extension
+$srcEXT  = ".cpp";      # src file extension
 # ==========================================================
 
 # Get author and date information
@@ -24,6 +31,7 @@ $upCname = uc $cname;
 $hpp =  
     "/**\\file $cname.$headEXT\n".
     " * \\author \n".
+    " * \\date $dtime\n".
     " */\n\n".
     "#ifndef $upCname"."_H_INC\n".
     "#define $upCname"."_H_INC\n".
@@ -38,10 +46,12 @@ $hpp =
 
 # Construct the cpp file contents
 $cpp =
-    "/**\\file $cname.$srcEXT\n".
+    "/**\\file   $cname.$srcEXT\n".
     " * \\author $author\n".
-    " */";
+    " * \\date   $dtime\n".
+    " */\n\n".
+    "$cname::$cname(){\n}\n\n".
+    "$cname::~$cname(){\n}\n\n";
 
 # open(HEADER, "include/$cname.h") or die "Failed to open header for writing";
 # open(SRC, "src/$cname.cpp") or die "Failed to open source for writting";
-
