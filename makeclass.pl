@@ -19,9 +19,8 @@ $srcEXT  = ".cpp";      # src file extension
 # ==========================================================
 
 # Get author and date information
-$author = `git config user.name`;
-($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
-sprintf($dtime, "%02d/%02d/%04d", $mon, $mday, $year);
+#$author = `git config user.name`;
+$dtime  = `date +%m/%d/%Y`
 
 # print "Class name? ";
 $cname   = <STDIN>;
@@ -29,7 +28,7 @@ $upCname = uc $cname;
 
 # Construct file contents of the header
 $hpp =  
-    "/**\\file $cname.$headEXT\n".
+    "/**\\file $cname$headEXT\n".
     " * \\author \n".
     " * \\date $dtime\n".
     " */\n\n".
@@ -46,12 +45,12 @@ $hpp =
 
 # Construct the cpp file contents
 $cpp =
-    "/**\\file   $cname.$srcEXT\n".
+    "/**\\file   $cname$srcEXT\n".
     " * \\author $author\n".
     " * \\date   $dtime\n".
     " */\n\n".
-    "$cname::$cname(){\n}\n\n".
-    "$cname::~$cname(){\n}\n\n";
+    "$cname"."::"."$cname(){\n}\n\n".
+    "$cname"."::~"."$cname(){\n}\n\n";
 
-# open(HEADER, "include/$cname.h") or die "Failed to open header for writing";
-# open(SRC, "src/$cname.cpp") or die "Failed to open source for writting";
+# open(HEADER, "include/$cname$headEXT) or die "Failed to open header for writing";
+# open(SRC, "src/$cname$srcEXT) or die "Failed to open source for writting";
