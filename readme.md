@@ -13,8 +13,8 @@ It has scripts to the following tasks:
   into your project directory for use, and called by your build system
   before starting your build. `autoversion.h`
 * C++ class creation script, which prepares the skeleton of a class and
-  a skeleton implementation of it putting the declaration and implementation
-  is seperate files. `makelass.pl`
+  a skeleton implementation of it, putting the declaration and implementation
+  in seperate files. `makelass.pl`
 
 # Licience 
 You may use these scripts in any way you want for free. However, you
