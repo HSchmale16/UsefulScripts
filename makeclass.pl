@@ -53,5 +53,10 @@ $cpp =
     "$cname"."::"."$cname(){\n}\n\n".
     "$cname"."::~"."$cname(){\n}\n\n";
 
-# open(HEADER, "include/$cname$headEXT) or die "Failed to open header for writing";
-# open(SRC, "src/$cname$srcEXT) or die "Failed to open source for writting";
+# write out to file
+open(HEAD_FILE, ">$headDir$cname$headEXT") or die "Couldn't open header file for writing: $!";
+open(SRC_FILE, ">$srcDir$cname$srcEXT") or die "Couldn't open source file for writing: $!";
+print HEAD_FILE "$hpp";
+print SRC_FILE "$cpp";
+close HEAD_FILE;
+close SRC_FILE;
