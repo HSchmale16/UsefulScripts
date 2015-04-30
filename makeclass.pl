@@ -23,8 +23,9 @@ $author = `git config user.name`;
 ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
 sprintf($dtime, "%02d/%02d/%04d", $mon, $mday, $year);
 
-# print "Class name? ";
+print "Class name? ";
 $cname   = <STDIN>;
+$cname   =~ s/\n//g;
 $upCname = uc $cname;
 
 # Construct file contents of the header
