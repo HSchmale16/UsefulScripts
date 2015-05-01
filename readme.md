@@ -19,4 +19,5 @@ It has scripts to the following tasks:
 # Licience 
 You may use these scripts in any way you want for free. However, you
 may not claim authorship or ownership of these scripts. Copyright
-is retained by the author.
+is retained by the author. Additionally, there is no warranty
+whatsoever for these script.
