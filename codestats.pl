@@ -18,5 +18,5 @@ my $codeLines = 0; # Lines of code - lines that don't fit in another space
 
 sub countLines{
     my ($file) = @_;
-    
+    open(FILE, "<$file") or die "Couldn't open file: $!\n";
 }
