@@ -31,7 +31,7 @@ $upCname = uc $cname;
 # Construct file contents of the header
 $hpp =  
     "/**\\file $cname$headEXT\n".
-    " * \\author \n".
+    " * \\author $author\n".
     " * \\date $dtime\n".
     " */\n\n".
     "#ifndef $upCname"."_H_INC\n".
