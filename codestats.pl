@@ -47,6 +47,12 @@ sub countLines{
             $newLines++;
             next;
         }
+        if(($lines[$b] =~ /^\s*\/\//) || # comments only lines
+           ($lines[$b] =~ /^\s*\/\*/) ||
+           ($lines[$b] =~ /^\s*\*/)){
+            $commLines++;
+            next;
+        }
     }
     close FILE;
 }
