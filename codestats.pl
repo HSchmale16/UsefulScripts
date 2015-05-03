@@ -43,6 +43,10 @@ sub countLines{
     my @lines = <FILE>;
     for($b = 0; $b < scalar(@lines); $b++){
         $totLines++;
+        if($lines[$b] =~ /^\s$/){ # is whitespace ==> newLine
+            $newLines++;
+            next;
+        }
     }
     close FILE;
 }
