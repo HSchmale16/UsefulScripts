@@ -43,7 +43,7 @@ sub countLines{
     my @lines = <FILE>;
     for($b = 0; $b < scalar(@lines); $b++){
         $totLines++;
-        if($lines[$b] =~ /^\s$/){ # is whitespace ==> newLine
+        if($lines[$b] =~ /^\s$/){ # is only whitespace ==> newLine
             $newLines++;
             next;
         }
@@ -51,6 +51,11 @@ sub countLines{
            ($lines[$b] =~ /^\s*\/\*/) ||
            ($lines[$b] =~ /^\s*\*/)){
             $commLines++;
+            next;
+        }
+        # code + comments
+        if(($lines[$b] =~ /\/\//)){
+            $bothLines++;
             next;
         }
     }
