@@ -17,6 +17,7 @@ my $commLines = 0; # Lines that start with a comment symbol
 my $bothLines = 0; # Lines that have a comment and code
 my $newLines  = 0; # Lines that are just whitespace
 my $codeLines = 0; # Lines of code - lines that don't fit in another space
+my $totLines  = 0; # Total lines of code
 
 my $files;
 for($a = 0; $a < scalar(@srcext); $a++){
@@ -28,8 +29,11 @@ for($a = 0; $a < scalar(@inputs); $a++){
     countLines($inputs[$a]);
 }
 # print out the results
-printf("Comment Lines: %d\n", $commLines);
-printf("Blank Lines  : %d\n", $newLines);
+printf("Code    : %d\n", $codeLines);
+printf("Comment : %d\n", $commLines);
+printf("Blank   : %d\n", $newLines);
+printf("Both    : %d\n", $bothLines);
+printf("Total   : %d\n", $totLines);
 
 # Count the lines in the given file
 # The first param is the file to open for counting
@@ -38,7 +42,7 @@ sub countLines{
     open(FILE, "<$srcfile") or die "Couldn't open file: $!\n";
     my @lines = <FILE>;
     for($b = 0; $b < scalar(@lines); $b++){
-        
+        $totLines++;
     }
     close FILE;
 }

@@ -51,6 +51,7 @@ $cpp =
     " * \\author $author\n".
     " * \\date   $dtime\n".
     " */\n\n".
+    "#include \"..include/$cname$headEXT\"\n".
     "$cname"."::"."$cname(){\n}\n\n".
     "$cname"."::~"."$cname(){\n}\n\n";
 
