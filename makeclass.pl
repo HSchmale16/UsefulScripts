@@ -20,19 +20,21 @@ $srcEXT  = ".cpp";      # src file extension
 
 # Get author and date information
 $author = `git config user.name`;
-($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime();
-sprintf($dtime, "%02d/%02d/%04d", $mon, $mday, $year);
+$myd = `date +%m/%d/%Y`;
 
 print "Class name? ";
+# fix strings
 $cname   = <STDIN>;
 $cname   =~ s/\n//g;
 $upCname = uc $cname;
+$author  =~ s/\n//g;
+$myd     =~ s/\n//g;
 
 # Construct file contents of the header
 $hpp =  
     "/**\\file $cname$headEXT\n".
-    " * \\author \n".
-    " * \\date $dtime\n".
+    " * \\author $author\n".
+    " * \\date $myd\n".
     " */\n\n".
     "#ifndef $upCname"."_H_INC\n".
     "#define $upCname"."_H_INC\n".
@@ -49,9 +51,9 @@ $hpp =
 $cpp =
     "/**\\file   $cname$srcEXT\n".
     " * \\author $author\n".
-    " * \\date   $dtime\n".
+    " * \\date   $myd\n".
     " */\n\n".
-    "#include \"..include/$cname$headEXT\"\n".
+    "#include \"../include/$cname$headEXT\"\n".
     "$cname"."::"."$cname(){\n}\n\n".
     "$cname"."::~"."$cname(){\n}\n\n";
 
