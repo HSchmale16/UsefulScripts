@@ -18,6 +18,7 @@ my $bothLines = 0; # Lines that have a comment and code
 my $newLines  = 0; # Lines that are just whitespace
 my $codeLines = 0; # Lines of code - lines that don't fit in another space
 my $totLines  = 0; # Total lines of code
+my $srcBytes  = 0; # Total Number of bytes in src code
 
 my $files;
 for($a = 0; $a < scalar(@srcext); $a++){
@@ -28,12 +29,7 @@ for($a = 0; $a < scalar(@inputs); $a++){
     print "Reading $inputs[$a]\n";
     countLines($inputs[$a]);
 }
-# print out the results
-printf("Code    : %d\n", $codeLines);
-printf("Comment : %d\n", $commLines);
-printf("Blank   : %d\n", $newLines);
-printf("Both    : %d\n", $bothLines);
-printf("Total   : %d\n", $totLines);
+printResults();
 
 # Count the lines in the given file
 # The first param is the file to open for counting
@@ -42,6 +38,7 @@ sub countLines{
     open(FILE, "<$srcfile") or die "Couldn't open file: $!\n";
     my @lines = <FILE>;
     for($b = 0; $b < scalar(@lines); $b++){
+        $srcBytes += length($lines[$b]);
         $totLines++;
         if($lines[$b] =~ /^\s$/){ # is only whitespace ==> newLine
             $newLines++;
@@ -62,4 +59,18 @@ sub countLines{
         $codeLines++;
     }
     close FILE;
+}
+
+sub calcPercent{
+    return ($_[0] / $_[1]) * 100.0;
+}
+
+sub printResults{
+    # print out the results
+    printf("Code    : %d  %2.3f\n", $codeLines, calcPercent($codeLines, $totLines));
+    printf("Comment : %d  %2.3f\n", $commLines, calcPercent($commLines, $totLines));
+    printf("Blank   : %d  %2.3f\n", $newLines,  calcPercent($newLines,  $totLines));
+    printf("Both    : %d  %2.3f\n", $bothLines, calcPercent($bothLines, $totLines));
+    printf("Total   : %d\n", $totLines);
+    printf("Bytes of code: %d\n", $srcBytes);
 }
