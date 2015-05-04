@@ -54,10 +54,12 @@ sub countLines{
             next;
         }
         # code + comments
-        if(($lines[$b] =~ /\/\//)){
+        if(($lines[$b] =~ /\/\//) ||
+           ($lines[$b] =~ /\/\*.*\*\//)){
             $bothLines++;
             next;
         }
+        $codeLines++;
     }
     close FILE;
 }
