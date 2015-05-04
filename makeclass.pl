@@ -23,9 +23,12 @@ $author = `git config user.name`;
 $myd = `date +%m/%d/%Y`;
 
 print "Class name? ";
+# fix strings
 $cname   = <STDIN>;
 $cname   =~ s/\n//g;
 $upCname = uc $cname;
+$author  =~ s/\n//g;
+$myd     =~ s/\n//g;
 
 # Construct file contents of the header
 $hpp =  
@@ -50,7 +53,7 @@ $cpp =
     " * \\author $author\n".
     " * \\date   $myd\n".
     " */\n\n".
-    "#include \"..include/$cname$headEXT\"\n".
+    "#include \"../include/$cname$headEXT\"\n".
     "$cname"."::"."$cname(){\n}\n\n".
     "$cname"."::~"."$cname(){\n}\n\n";
 
