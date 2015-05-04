@@ -67,10 +67,10 @@ sub calcPercent{
 
 sub printResults{
     # print out the results
-    printf("Code    : %d  %2.3f\n", $codeLines, calcPercent($codeLines, $totLines));
-    printf("Comment : %d  %2.3f\n", $commLines, calcPercent($commLines, $totLines));
-    printf("Blank   : %d  %2.3f\n", $newLines,  calcPercent($newLines,  $totLines));
-    printf("Both    : %d  %2.3f\n", $bothLines, calcPercent($bothLines, $totLines));
-    printf("Total   : %d\n", $totLines);
+    printf("Code    : %09d  %02.3f\n", $codeLines, calcPercent($codeLines, $totLines));
+    printf("Comment : %09d  %02.3f\n", $commLines, calcPercent($commLines, $totLines));
+    printf("Blank   : %09d  %02.3f\n", $newLines,  calcPercent($newLines,  $totLines));
+    printf("Both    : %09d  %02.3f\n", $bothLines, calcPercent($bothLines, $totLines));
+    printf("Total   : %09d\n", $totLines);
     printf("Bytes of code: %d\n", $srcBytes);
 }
