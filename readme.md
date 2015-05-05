@@ -15,6 +15,9 @@ It has scripts to the following tasks:
 * C++ class creation script, which prepares the skeleton of a class and
   a skeleton implementation of it, putting the declaration and implementation
   in seperate files. `makelass.pl`
+* Code statistics script calculates the lines of code in a C/C++ (also works
+  on java projects), and the types of lines of code. Prints the results in a
+  similar fashion to the codeblocks plug-in. `codestats.pl`
 
 # Licience 
 You may use these scripts in any way you want for free. However, you
