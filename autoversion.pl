@@ -19,7 +19,7 @@ use warnings;
 use constant{
     MAX_MINOR   => 10,     # Max value of minor before incrementing major
     MAX_REV     => 10000,  # Max Value of rev before incrementing minor
-    MAX_REV_ADD => 100     # Max value to add to rev each time called
+    MAX_REV_ADD => 10      # Max value to add to rev each time called
 };
 
 my $commit = `git rev-list HEAD --count`;
@@ -86,3 +86,6 @@ my $con =
 open(FILE, "> $vh") or die "Couldn't open version header for writing: $!";
 print FILE "$con";
 close FILE;
+
+# if there is a doxygen file update the project number
+# The doxygen file should be titled `doxyfile`
