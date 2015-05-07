@@ -89,3 +89,15 @@ close FILE;
 
 # if there is a doxygen file update the project number
 # The doxygen file should be titled `doxyfile`
+open(OLD, "< doxyfile") or die "Project not set up for doxygen: $!";
+open(NEW, "> doxyfile.new") or die "Can't open doxyfile for writing: $!";
+while(<OLD>){
+    if($_ =~ /PROJECT_NUMBER/){
+        $_ =~ s/[0-9.\n]//g;
+        $_ .= "\"$major.$minor.$build.$rev\"\n";
+   }
+   print NEW $_;
+}
+close OLD;
+close NEW;
+rename("doxyfile.new", "doxyfile");
