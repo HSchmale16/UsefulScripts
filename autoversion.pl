@@ -93,7 +93,7 @@ open(OLD, "< doxyfile") or die "Project not set up for doxygen: $!";
 open(NEW, "> doxyfile.new") or die "Can't open doxyfile for writing: $!";
 while(<OLD>){
     if($_ =~ /PROJECT_NUMBER/){
-        $_ =~ s/[0-9.\n]//g;
+        $_ =~ s/[0-9.\n\"]//g;
         $_ .= "\"$major.$minor.$build.$rev\"\n";
    }
    print NEW $_;
