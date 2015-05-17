@@ -19,6 +19,7 @@ my $newLines  = 0; # Lines that are just whitespace
 my $codeLines = 0; # Lines of code - lines that don't fit in another space
 my $totLines  = 0; # Total lines of code
 my $srcBytes  = 0; # Total Number of bytes in src code
+my $fCount    = 0; # Number of files read
 
 my $files;
 for($a = 0; $a < scalar(@srcext); $a++){
@@ -28,6 +29,7 @@ my @inputs = split("\n", $files);
 for($a = 0; $a < scalar(@inputs); $a++){
     print "Reading $inputs[$a]\n";
     countLines($inputs[$a]);
+    $fCount++;
 }
 printResults();
 
@@ -67,6 +69,7 @@ sub calcPercent{
 
 sub printResults{
     # print out the results
+    printf("Read %d Files\n", $fCount);
     printf("Code    : %09d  %06.3f\n", $codeLines, calcPercent($codeLines, $totLines));
     printf("Comment : %09d  %06.3f\n", $commLines, calcPercent($commLines, $totLines));
     printf("Blank   : %09d  %06.3f\n", $newLines,  calcPercent($newLines,  $totLines));
