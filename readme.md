@@ -19,8 +19,8 @@ It has scripts to the following tasks:
   on java projects), and the types of lines of code. Prints the results in a
   similar fashion to the codeblocks plug-in. `codestats.pl`
 
-# Licience 
+# License
 You may use these scripts in any way you want for free. However, you
 may not claim authorship or ownership of these scripts. Copyright
 is retained by the author. Additionally, there is no warranty
-whatsoever for these script.
+whatsoever for these scripts, including any implied warranties.
