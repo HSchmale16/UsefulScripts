@@ -70,6 +70,7 @@ sub calcPercent{
 sub printResults{
     # print out the results
     printf("Read %d Files\n", $fCount);
+    printf("Average Lines Per File: %d\n", $totLines / $fCount);
     printf("Code    : %09d  %06.3f\n", $codeLines, calcPercent($codeLines, $totLines));
     printf("Comment : %09d  %06.3f\n", $commLines, calcPercent($commLines, $totLines));
     printf("Blank   : %09d  %06.3f\n", $newLines,  calcPercent($newLines,  $totLines));
