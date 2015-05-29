@@ -27,8 +27,9 @@ for($a = 0; $a < scalar(@srcext); $a++){
 }
 my @inputs = split("\n", $files);
 for($a = 0; $a < scalar(@inputs); $a++){
-    print "Reading $inputs[$a]\n";
+    my $prev = $totLines;
     countLines($inputs[$a]);
+    printf("Read %d ln. In %s\n", $totLines - $prev, $inputs[$a]);
     $fCount++;
 }
 printResults();
