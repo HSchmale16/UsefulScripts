@@ -8,7 +8,7 @@
 
 mydate=$(date +%b%Y)
 
-for f in $(find . -name "*_log"); do
-    mv $f.old $f.$mydate
+for f in $(find . -name "*_log*"); do
+    mv $f $f.$mydate
     gzip $f.$mydate 
 done
