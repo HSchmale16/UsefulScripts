@@ -2,22 +2,16 @@
 (c) 2015 Henry J Schmale
 
 A collection of various scripts that I wrote for various purposes.
-It has scripts to the following tasks:
+Some of them assist with development, and others help automate
+boring tasks.
 
-## Descriptions of each script
-* Initialize a C++ project with a makefile and a skeleton main 
-  function - `quick-cpp-setup.sh`.
-* A script that is equalivalent to the autoversion plug-in for
-  code blocks and works with gnu make. It creates a version.h file
-  and talks to your git repo. It needs to be copied
-  into your project directory for use, and called by your build system
-  before starting your build. `autoversion.h`
-* C++ class creation script, which prepares the skeleton of a class and
-  a skeleton implementation of it, putting the declaration and implementation
-  in seperate files. `makelass.pl`
-* Code statistics script calculates the lines of code in a C/C++ (also works
-  on java projects), and the types of lines of code. Prints the results in a
-  similar fashion to the codeblocks plug-in. `codestats.pl`
+Each directory has scripts written for working on various differint
+types of projects. The directory name should be self-explantory, if
+it is not there might be a read-me in that directory to help out
+with understanding the scripts in that directory.
+
+Scripts that exist in the project root directory are good general
+purpose scripts that don't fit into the other directories.
 
 # License
 You (from this point on referred to as The You) are hereby 
