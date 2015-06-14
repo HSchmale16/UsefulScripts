@@ -1,5 +1,10 @@
 #!/usr/bin/perl
+# Henry J Schmale
+# Jun3 14, 2015
 #
+# Usage: [Table Name] [Col 0 .. Col n]
+# Input is read from stdin and the insert statements
+# are writen to stdout
 
 use strict;
 use warnings;
