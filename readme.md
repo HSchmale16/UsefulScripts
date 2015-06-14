@@ -34,3 +34,5 @@ that in large quantities may be harmful and possibly even
 lethal to The You; So don't even think about it, The Buster.
 
 [This license stolen from here](http://stackoverflow.com/a/769077/4335488)
+
+or you can just use it under the terms of GPL v3.

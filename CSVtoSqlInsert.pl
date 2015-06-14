@@ -4,28 +4,21 @@
 use strict;
 use warnings;
 
-# Get input
-print "Enter File name to process: ";
-my $infile = <STDIN>;
-print "Enter File to output to: ";
-my $outfile = <STDIN>;
-print "Enter SQL table name to insert to: ";
-my $sqltable = <STDIN>;
-print "Enter number of table columns: ";
-my $tbcolnum = <STDIN>;
-my @colnames;
-for(my $a = 0; $a < $tbcolnum; $a++){
-    print "Enter Column $a Name: ";
-    $colnames[$a] = <STDIN>;
+my (@colnames) = @ARGV;
+my $sqltable = $ARGV[0];
+
+while(my $line = <STDIN>){
+    chomp($line);
+    $line =~ s/^\s+|\s+$//g;
+    my @vals = split(',', $line);
+    my $q = "INSERT INTO $sqltable(";
+    for(my $a = 1; $a < scalar(@colnames) - 1; $a++){
+        $q .= "$colnames[$a],";
+    }
+    $q .= "$colnames[scalar(@colnames)-1])VALUES(";
+    for(my $a = 0; $a < scalar(@vals)-1; $a++){
+        $q .= "'$vals[$a]',";
+    }
+    $q .= "'$vals[scalar(@vals)-1]');";
+    print "$q\n";
 }
-
-# Read file in and write sql queries to outfile
-open(INFILE, "<$infile") or die "Can't open file: $!";
-open(OUTFILE, ">$outfile") or die "Can't open file: $!";
-
-while($line = <INFILE>){
-
-}
-
-close INFILE;
-close OUTFILE;
