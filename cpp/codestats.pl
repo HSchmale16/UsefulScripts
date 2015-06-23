@@ -2,8 +2,9 @@
 # codestats.pl
 # A perl script to calculate the number of lines of code in a project
 # and what type of lines those code are, such as comments, code, or
-# newlines. This script is specific to C/C++, but should be able to be
-# adapted to other languages.
+# newlines. This script is specific to C/C++, but it should work with any
+# language that has the same commenting scheme, so it should probably work
+# with java too.
 #
 # Henry J Schmale
 # April 30, 2015
