@@ -73,10 +73,14 @@ sub printResults{
     # print out the results
     printf("Read %d Files\n", $fCount);
     printf("Average Lines Per File: %d\n", $totLines / $fCount);
-    printf("Code    : %09d  %06.3f\n", $codeLines, calcPercent($codeLines, $totLines));
-    printf("Comment : %09d  %06.3f\n", $commLines, calcPercent($commLines, $totLines));
-    printf("Blank   : %09d  %06.3f\n", $newLines,  calcPercent($newLines,  $totLines));
-    printf("Both    : %09d  %06.3f\n", $bothLines, calcPercent($bothLines, $totLines));
-    printf("Total   : %09d\n", $totLines);
-    printf("Bytes of code: %d\n", $srcBytes);
+    printf("Code    : %09d ln. %06.3f", $codeLines, calcPercent($codeLines, $totLines));
+    print "%\n";
+    printf("Comment : %09d ln. %06.3f", $commLines, calcPercent($commLines, $totLines));
+    print "%\n";
+    printf("Blank   : %09d ln. %06.3f", $newLines,  calcPercent($newLines,  $totLines));
+    print "%\n";
+    printf("Both    : %09d ln. %06.3f", $bothLines, calcPercent($bothLines, $totLines));
+    print "%\n";
+    printf("Total   : %09d ln.\n", $totLines);
+    printf("CodeSize: %09d bytes\n", $srcBytes);
 }
