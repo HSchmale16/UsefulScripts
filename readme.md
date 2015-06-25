@@ -16,12 +16,12 @@ purpose scripts that don't fit into the other directories.
 # License
 You (from this point on referred to as The You) are hereby 
 granted by me (from this point on referred to as The Me) 
-license to knock yourself silly with this template. 
+license to knock yourself silly with these scripts. 
 By using this template The You implicitly accepts this 
 license and pledges solemnly to never claim creative 
 ownership of any graphics, code, concepts, eggs, bacon, ideas, 
 colors, shapes, hypertext-transfer protocols or other conduits 
-of the visual splendor thatis this template. 
+of the visual splendor thatis these scripts. 
 
 The Me, in turn, pledges equally solemnly to be far too 
 lazy to ever check up on you, so if you do manage to pull 
