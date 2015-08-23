@@ -29,8 +29,10 @@ for($a = 0; $a < scalar(@srcext); $a++){
 my @inputs = split("\n", $files);
 for($a = 0; $a < scalar(@inputs); $a++){
     my $prev = $totLines;
+    my $bytes = $srcBytes;
     countLines($inputs[$a]);
-    printf("Read %d ln. In %s\n", $totLines - $prev, $inputs[$a]);
+    #printf("Read %d ln. In %s\n", $totLines - $prev, $inputs[$a]);
+    printf("%d,%d,%s\n",$totLines - $prev, $srcBytes - $bytes, $inputs[$a]); 
     $fCount++;
 }
 printResults();
