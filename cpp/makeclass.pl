@@ -37,7 +37,7 @@ $hpp =
     " * \\date $myd\n".
     " */\n\n".
     "#ifndef $upCname"."_H_INC\n".
-    "#define $upCname"."_H_INC\n".
+    "#define $upCname"."_H_INC\n\n".
     "class $cname"."{\n".
     "public:\n".
     "    $cname"."();\n".
@@ -53,7 +53,7 @@ $cpp =
     " * \\author $author\n".
     " * \\date   $myd\n".
     " */\n\n".
-    "#include \"../include/$cname$headEXT\"\n".
+    "#include \"../include/$cname$headEXT\"\n\n".
     "$cname"."::"."$cname(){\n}\n\n".
     "$cname"."::~"."$cname(){\n}\n\n";
 
