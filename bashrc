@@ -22,7 +22,14 @@ alias pmake='time make -j$NUMCPUS'
 
 # Word Count Stuff
 # Calculate the word count of all the text documents in a directory and
-# it's subdirs. This function is incomplete, and limited
+# it's subdirs.
 function recwc {
-    wc $(find . -name '*.tex'; find . -name '*.md')
+    local pipe='/tmp/recwcpipe'
+    for f in $(find . -name '*.tex'; find . -name '*.md')
+    do
+        wc $f >> $pipe
+    done
+    awk '{words += $1; lines += $2; print $1"  "$2"  "$4}
+            END{print "Words: "words; print "Lines: "lines}' $pipe
+    rm -f $pipe
 }
