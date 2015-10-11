@@ -29,7 +29,8 @@ function recwc {
     do
         wc $f >> $pipe
     done
-    awk '{words += $1; lines += $2; print $1"  "$2"  "$4}
-            END{print "Words: "words; print "Lines: "lines}' $pipe
+    awk '{words += $2; lines += $1; files += 1; print $1"\t"$2"\t"$4}
+            END{print "Words: "words; print "Lines: "lines; 
+            print "Files: "files}' $pipe
     rm -f $pipe
 }
