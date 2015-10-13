@@ -3,7 +3,9 @@
 # 
 # An extra bashrc file that contains various useful aliases and functions
 # Add to your enviroment by adding the following lines to your regular
-# .bashrc. I wrote this because I wanted to be able to share configuration
+# .bashrc. It also does some other terminal magic like setting up my
+# enviroment the way that I like it to be setup.
+# I wrote this because I wanted to be able to share configuration
 # settings between all of my machines, and this way allows me to do just
 # that with the magic of source.
 #
@@ -13,7 +15,10 @@
 #
 # Where PATH_TO_THIS_FILE is the path to this file
 
-_myos="$(uname)"
+# Custom Prompt
+PS1=\
+'\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\]\[\e[1;37m\]'
+
 
 # Parallel Make and other improvements to make
 export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
