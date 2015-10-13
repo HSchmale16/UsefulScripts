@@ -11,23 +11,61 @@
 # in your path.
 #
 # USAGE:
-# ./git2gdrive <LOCAL_DIR_TO_BKUP> <GDRIVE_DIR_TO_PLACE_IN>
+# ./git2gdrive <LOCAL_DIR_TO_BKUP>
+# 
+# It is important to note that it will upload it to the `backup` folder in
+# gdrive creating it if the folder does not exist
+
 
 LOCALDIR=$1
-REMOTEDIR=$2
+REMOTEDIR="backup"
 
+# Input Verification
+if [ -z "$LOCALDIR" ] ; then
+    echo "You need to specify the directory to backup"
+    exit
+else
+    if [ ! -d "$LOCALDIR" ] ; then
+        echo "$LOCALDIR is not a directory"
+        exit
+    fi
+fi
+
+# Begin the meat of the script
 DATE=$(date +%Y-%m-%d)
-TARNAME=/tmp/$(basename $LOCALDIR)$DATE.tbz
+TARNAME="/tmp/$(basename $LOCALDIR)$DATE.tbz"
 
 # Reduce the size of the directoy by doing some stuff with git and make
 # I don't want to upload binaries to google drive
 cd $LOCALDIR
-echo $(pwd)
-make clean
-if [ -d ./.git ] ; then
-    git gc --aggressive
+echo Enter $(pwd)
+echo clean the build stuff
+if [ -f "makefile" ] ; then
+    make clean
+fi
+if [ -d "./.git" ] ; then
+    echo Is Git Repo, Reducing Repo size
+    git gc --aggressive --quiet
 fi
 cd ..
 
-echo $(pwd)
+echo Enter $(pwd)
 
+# compress the folder
+RELDIR=$(basename "$LOCALDIR")
+tar cfj "$TARNAME" "$RELDIR"
+
+# Prepare to upload
+FOLDER_INFO=$(drive list | grep "$REMOTEDIR")
+
+# Create backup folder because it does not exists yet and get the id of the
+# parent to place file in
+if [ -z "$FOLDER_INFO" ] ; then
+    PARENT_ID=$(drive folder -t "$REMOTEDIR")
+    PARENT_ID=$(echo $PARENT_ID | awk '{print $2}')
+else
+    PARENT_ID=$(echo "$FOLDER_INFO" | awk '{print $1}' | head -1)
+fi
+
+# Finally We can now upload the the backup tar to google drive
+drive upload -p "$PARENT_ID" -f "$TARNAME"
