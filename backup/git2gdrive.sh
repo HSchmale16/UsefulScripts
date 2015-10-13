@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Henry J Schmale
 # git2gdrive.sh
 # October 13, 2015
