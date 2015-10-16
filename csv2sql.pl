@@ -1,8 +1,13 @@
 #!/usr/bin/perl
 # Henry J Schmale
-# Jun3 14, 2015
+# June 14, 2015
 #
-# Usage: [Table Name] [Col 0 .. Col n]
+# Generates SQL insert statements from a csv file.
+#
+# Usage: 
+# ./csv2sql.pl [Table Name] [Col 0 .. Col n]
+# Example: ./csv2sql.pl 'table' 'col1, col2, col3'
+#
 # Input is read from stdin and the insert statements
 # are writen to stdout
 
