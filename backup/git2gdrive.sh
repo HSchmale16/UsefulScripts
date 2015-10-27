@@ -48,13 +48,10 @@ if [ -d "./.git" ] ; then
     echo Is Git Repo, Reducing Repo size
     git gc --aggressive --quiet
 fi
-cd ..
 
-echo Enter $(pwd)
-
-# compress the folder
-RELDIR=$(basename "$LOCALDIR")
-tar cfj "$TARNAME" "$RELDIR"
+# Generate the archive
+git archive --format=tar --prefix=$(basename $LOCALDIR)/ HEAD | bzip2 \
+    > $TARNAME
 
 # Prepare to upload
 FOLDER_INFO=$(drive list | grep "$REMOTEDIR")
