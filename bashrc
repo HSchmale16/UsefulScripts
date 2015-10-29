@@ -19,9 +19,12 @@
 PS1=\
 '\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\]\[\e[1;37m\]'
 
-# Set my editor
+# Set my editor, which is vim.
 export EDITOR=vim
 export VISUAL=vim
+
+# Set up piping to my xclipboard
+alias p2clip='xclip -selection c'
 
 # Parallel Make and other improvements to make
 export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
