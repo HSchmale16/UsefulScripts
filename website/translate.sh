@@ -21,7 +21,8 @@ cat $FILE | cut -d, "-f${ID_FIELD},${FIELD}" | while read line
 do
     f=$(echo $line | cut -d, -f${FIELD})
     id=$(echo $line | cut -d, -f1)
-    ftrd=$(echo $f | tr ' ' '-' | perl -pe 's/[^\w.-]+//g')
+    ftrd=$(echo $f | tr ' ' '-' | tr -s '-' | tr -cd '[[:alnum:]]-' \
+        | tr 'A-Z' 'a-z')
 
     echo "UPDATE $TABLE SET URLTITLE='$ftrd' WHERE ID=$id;"
 done 
