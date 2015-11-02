@@ -26,6 +26,29 @@ foreach (@lines) {
     }
 }
 
-foreach (keys %commits){
-    print "$_\t$commits{$_}->{ins}\t$commits{$_}->{del}\n";
+my (@key, @ins, @del);
+my $i = 0;
+foreach (sort keys %commits){
+    $key[$i] = $_;
+    $ins[$i] = $commits{$_}->{ins};
+    $del[$i] = $commits{$_}->{del};
+    $i++;
 }
+
+use GD::Graph::area;
+
+my $graph = GD::Graph::area->new(800, 600);
+$graph->set(
+    x_label     => 'date',
+    y_label     => 'Magic',
+    title       => 'Git'
+);
+
+my @data = (\@key, \@ins, \@del);
+$graph->plot(\@data);
+
+my $format = $graph->export_format;
+open(IMG, ">file.$format") or die $!;
+binmode IMG;
+print IMG $graph->plot(\@data)->$format();
+close IMG;
