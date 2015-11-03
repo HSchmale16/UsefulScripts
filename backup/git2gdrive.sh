@@ -31,7 +31,6 @@ else
     fi
 fi
 
-notify-send "Backing Up $LOCALDIR to google drive"
 # Begin the meat of the script
 DATE=$(date +%Y-%m-%d)
 TARNAME="/tmp/$(basename $LOCALDIR)$DATE.tbz"
