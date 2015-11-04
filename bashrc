@@ -15,6 +15,8 @@
 #
 # Where PATH_TO_THIS_FILE is the path to this file
 
+unamestr=$(uname)
+
 # Custom Prompt
 PS1=\
 '\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\]\[\e[1;37m\]'
@@ -31,17 +33,8 @@ export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
 alias make='time make'
 alias pmake='time make -j$NUMCPUS'
 
-# Word Count Stuff
-# Calculate the word count of all the text documents in a directory and
-# it's subdirs.
-function recwc {
-    local pipe='/tmp/recwcpipe'
-    for f in $(find . -name '*.tex'; find . -name '*.md')
-    do
-        wc $f >> $pipe
-    done
-    awk '{words += $2; lines += $1; files += 1; print $1"\t"$2"\t"$4}
-            END{print "Words: "words; print "Lines: "lines; 
-            print "Files: "files}' $pipe
-    rm -f $pipe
-}
+# Added a say command for linux while maintaining mac compatibility
+if [[ "$unamestr" == 'Linux' ]]
+then
+    alias say ='echo "$1" | espeak -s 120 2>/dev/null'
+fi
