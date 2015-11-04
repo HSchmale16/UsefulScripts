@@ -15,8 +15,6 @@
 #
 # Where PATH_TO_THIS_FILE is the path to this file
 
-unamestr=$(uname)
-
 # Custom Prompt
 PS1=\
 '\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\]\[\e[1;37m\]'
@@ -33,8 +31,13 @@ export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
 alias make='time make'
 alias pmake='time make -j$NUMCPUS'
 
-# Added a say command for linux while maintaining mac compatibility
-if [[ "$unamestr" == 'Linux' ]]
-then
-    alias say ='echo "$1" | espeak -s 120 2>/dev/null'
-fi
+case "$(uname)" in
+    # Linux only things
+    Linux)
+        # say command for linux while maintaining mac compatibility
+        alias say='echo "$1" | espeak -s 120 2>/dev/null'
+        ;;
+    # Mac Only things
+    Darwin)
+        ;;
+esac

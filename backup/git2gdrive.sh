@@ -30,6 +30,7 @@ then
     exit
 fi
 
+# You also need `git` to run this script
 if ! type -p git 2>&1 /dev/null
 then
     echo \`git\` is not installed. This is a required package for this \
