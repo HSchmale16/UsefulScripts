@@ -30,7 +30,12 @@ then
     exit
 fi
 
-
+if ! type -p git 2>&1 /dev/null
+then
+    echo \`git\` is not installed. This is a required package for this \
+        script.
+    exit
+fi
 
 # Input Verification
 # This stuff checks the arguements to the backup script.
