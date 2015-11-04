@@ -35,7 +35,9 @@ case "$(uname)" in
     # Linux only things
     Linux)
         # say command for linux while maintaining mac compatibility
-        alias say='echo "$1" | espeak -s 120 2>/dev/null'
+        function say {
+            echo "$@" | espeak -s 120 2> /dev/null
+        }
         ;;
     # Mac Only things
     Darwin)
