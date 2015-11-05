@@ -23,7 +23,7 @@ REMOTEDIR="backup"
 # Check that required programs are installed
 # Please see the note in the preamble(at the top) for the required
 # programs.
-if ! type -p drive 2>&1 /dev/null
+if type -p drive 2>&1 /dev/null
 then
     echo \`drive\` is not in your path, add it to your path to use this \
         script.
@@ -31,7 +31,7 @@ then
 fi
 
 # You also need `git` to run this script
-if ! type -p git 2>&1 /dev/null
+if type -p git 2>&1 /dev/null
 then
     echo \`git\` is not installed. This is a required package for this \
         script.
