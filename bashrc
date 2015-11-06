@@ -43,3 +43,7 @@ case "$(uname)" in
     Darwin)
         ;;
 esac
+
+# Awesome Commit Message
+alias git-randcommit='git commit -am "$(curl -s http://whatthecommit.com/index.txt)"'
+
