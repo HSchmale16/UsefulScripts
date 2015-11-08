@@ -17,5 +17,7 @@ maxval = 0
 for key in c:
     if c[key] > maxval:
         maxval = c[key]
-print str(maxval)
 
+for key in c:
+    if c[key] >= maxval:
+        print str(key)
