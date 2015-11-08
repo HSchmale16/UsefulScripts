@@ -6,6 +6,9 @@
 # -n how many to output
 # -a min value in list
 # -b max value in list
+# 
+# Fair Warning: This script only works with ranges that up to 16 bits in
+# size, meaning the delta between the min and max must be less than 32768
 
 MIN=0
 MAX=100
