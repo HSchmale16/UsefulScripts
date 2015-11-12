@@ -1,13 +1,12 @@
 #!/bin/bash
 # Henry J Schmale
-# git2gdrive.sh
-# October 13, 2015
-# 
-# A Script to compress and upload a git repository to google drive. I
-# recomend that you add this as a cronjob for directories you want backed
-# up. This script only backs up the current repository state. It does not
-# backup the repository history. For history backup run `ghist2gdrive.sh`
-# which backs up the history and the repo state to google drive.
+# ghist2gdrive.sh
+# November 12, 2015
+#
+# This script backs up a git repository with history and all to google
+# drive. This script is not recomended to be used everytime, because it
+# produces much larger archives than `git2gdrive.sh`. This script is more
+# like a weekly thing than a daily thing.
 # 
 # NOTE: This script requires https://github.com/prasmussen/gdrive to be
 # in your path.
@@ -56,14 +55,17 @@ fi
 
 # Begin the meat of the script
 DATE=$(date +%Y-%m-%d)
-TARNAME="/tmp/$(basename $LOCALDIR)$DATE.tbz"
+TARNAME="/tmp/$(basename $LOCALDIR)-${DATE}.bundle"
 
 cd $LOCALDIR
 echo Enter $(pwd)
 
 # Generate the archive
-git archive --format=tar --prefix=$(basename $LOCALDIR)/ HEAD \
-    | bzip2 > $TARNAME
+# In this case xz is better at archiving binary data, so that is used bzip2
+git bundle create $TARNAME master
+xz $TARNAME
+# Update the tarname
+TARNAME=${TARNAME}.xz
 
 # Prepare to upload
 # Get the remote directory id to place the back up in.
