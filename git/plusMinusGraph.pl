@@ -69,6 +69,18 @@ foreach (sort keys %commits){
     $i++;
 }
 
+# Get the max value in the data sets
+my @allpoints;
+my ($min, $max);
+push @allpoints, @ins;
+push @allpoints, @del;
+push @allpoints, @net;
+for(@allpoints){
+    $min = $_ if !$min || $_ < $min;
+    $max = $_ if !$max || $_ > $max;
+}
+
+# Graph it
 use GD::Graph::area;
 
 my $GRAPH_WIDTH = 1000;
@@ -78,6 +90,8 @@ my $graph = GD::Graph::area->new($GRAPH_WIDTH, $GRAPH_HEIGHT);
 $graph->set(
     x_label     => 'date',
     y_label     => 'Insert / Delete Per Day',
+    y_max_value => $max * 1.1,
+    y_min_value => $min * 1.1,
     title       => 'Git Insert Delete Per Day'
 );
 
