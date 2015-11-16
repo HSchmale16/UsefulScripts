@@ -20,8 +20,10 @@ use File::Basename;
 my $graphsty = dirname(File::Spec->rel2abs(__FILE__)) . '/svg-graph-ss.css';
 
 # CD into the directory specified if specified 
-if(-e $ARGV[0] and -d $ARGV[0]){
-    chdir $ARGV[0];
+if(defined $ARGV[0]){
+    if(-e $ARGV[0] and -d $ARGV[0]){
+        chdir $ARGV[0];
+    }
 }
 
 # Indexed by date
