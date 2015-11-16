@@ -2,19 +2,32 @@
 # Henry J Schmale
 # November 4, 2015
 #
-# Creates an insertion and delation graph for a git repo.
-# This script is ran directly in the git repo you want to query about and
-# outputs an image file named `file.gif` or something to the like of that.
+# Creates an insertion and delation graph per day graph for a git repo. It
+# outputs an svg of the graph on standard output.
 #
-# Requires GD::Graph
+# This script can take the name of a directory to produce the graph for
+# that directory if no param is given, then it does it in the current
+# directory. 
+#
+# Requires SVG::TT:Graph::Line
 
 use strict;
 use warnings;
 
+# Get the path to the stylesheet first
+use File::Spec;
+use File::Basename;
+my $graphsty = dirname(File::Spec->rel2abs(__FILE__)) . '/svg-graph-ss.css';
+
+# CD into the directory specified if specified 
+if(-e $ARGV[0] and -d $ARGV[0]){
+    chdir $ARGV[0];
+}
+
 # Indexed by date
 my %commits;
 
-# get the git log
+# get the git log and preprocess it
 my $gitlogOutput = qx(git log --numstat --pretty="%H %aI" | grep -v '^\$');
 
 
@@ -52,8 +65,8 @@ while($firstDate->add(days => 1) < $lastDate){
         $commits{$key}->{del} = 0;
     }
 }
-print scalar keys %commits;
-print "\n";
+# print scalar keys %commits;
+# print "\n";
 
 # Prepare data for graphing by converting them to arrays
 my (@key, @ins, @del, @net);
@@ -65,7 +78,7 @@ foreach (sort keys %commits){
     # being below the x axis.
     $del[$i] = -$commits{$_}{del};
     $net[$i] = $commits{$_}{ins} - $commits{$_}{del};
-    printf("%s,%s,%s,%s\n", $_, $ins[$i], $del[$i], $net[$i]);
+    # printf("%s,%s,%s,%s\n", $_, $ins[$i], $del[$i], $net[$i]);
     $i++;
 }
 
@@ -81,32 +94,47 @@ for(@allpoints){
 }
 
 # Graph it
-use GD::Graph::area;
+use SVG::TT::Graph::Line;
 
-my $GRAPH_WIDTH = 1000;
-my $GRAPH_HEIGHT = 800;
+my $graph = SVG::TT::Graph::Line->new({
+        width => 1200,
+        height => 800,
+        fields => \@key,
+        scale_integers => 1,
+        rotate_x_labels => 1,
+        show_data_values => 0,
+        show_data_points => 0,
+        min_scale_value => $min,
+        max_scale_value => $max,
+        style_sheet => $graphsty,
+    });
+# Add the data
+$graph->add_data({
+        'data' => \@ins,
+        title => 'Inserts Per Day'
+    });
+$graph->add_data({
+        'data' => \@del,
+        title => 'Deletions Per Day'
+    });
+$graph->add_data({
+        'data' => \@net,
+        title => 'Net Insert/Del Per Day'
+    });
 
-my $graph = GD::Graph::area->new($GRAPH_WIDTH, $GRAPH_HEIGHT);
-$graph->set(
-    x_label     => 'date',
-    y_label     => 'Insert / Delete Per Day',
-    y_max_value => $max * 1.1,
-    y_min_value => $min * 1.1,
-    title       => 'Git Insert Delete Per Day'
-);
+# Print file 
+my $filepath = '/tmp/gitGraph.svg';
+open my $FD,'>',$filepath or die $!;
+print $FD $graph->burn();
+close $FD;
 
-my @data = (\@key, \@ins, \@del, \@net);
-$graph->plot(\@data);
-
-my $format = $graph->export_format;
-open(IMG, ">file.$format") or die $!;
-binmode IMG;
-print IMG $graph->plot(\@data)->$format();
-close IMG;
+# Open it up in the browser or prefered method for opening the file
+$filepath = 'file://'.$filepath;
+qx(xdg-open $filepath);
 
 sub getDateTime {
     my ($ss,$mm,$hh,$day,$month,$year,$zone) = strptime($_[0]);
-    print "\t$_[0]\n";
+    # print "\t$_[0]\n";
     return DateTime->new(
         day => $day,
         month => $month + 1,
