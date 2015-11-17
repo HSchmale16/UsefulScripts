@@ -1,2 +1,7 @@
 # Personal Test Data
 *.csv
+
+# Jekyll Stuff
+.jekyll-metadata
+.sass-cache/*
+_site/*
