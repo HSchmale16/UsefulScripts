@@ -9,9 +9,11 @@
 title: Useful Scripts
 email: hschmale16@gmail.com 
 description: > # this means to ignore newlines until "baseurl:"
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://hschmale16.github.io/UsefulScripts"
+baseurl: "/UsefulScripts" # the subpath of your site, e.g. /blog
+url: "http://hschmale16.github.io"
 github_username:  HSchmale16
 
 # Build settings
 markdown: kramdown
+
+
