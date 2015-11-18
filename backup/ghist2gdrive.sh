@@ -12,13 +12,19 @@
 # in your path.
 #
 # USAGE:
-# ./git2gdrive <LOCAL_DIR_TO_BKUP>
+# ./git2gdrive <LOCAL_DIR_TO_BKUP> [ANYTHING]
 # 
+# If any thing is placed in the [ANYTHING] position then the remote sync
+# feature will be enabled and it will fetch updates from a remote. You can
+# enable this if you would like. It does not really matter. That state is
+# not saved from run to run of this script.
+#
 # It is important to note that it will upload it to the `backup` folder in
 # gdrive creating it if the folder does not exist
 
 
 LOCALDIR=$1
+ENABLE_REMOTE_SYNC=$2
 REMOTEDIR="backup"
 
 # Check that required programs are installed
@@ -60,9 +66,24 @@ TARNAME="/tmp/$(basename $LOCALDIR)-${DATE}.bundle"
 cd $LOCALDIR
 echo Enter $(pwd)
 
+# Fetch the latest updates from the remote if there is one
+BRANCH_NAME=master
+if [ ! -z $ENABLE_REMOTE_SYNC ]
+then
+    # on success return code is 0
+    git ls-remote --exit-code
+    if test $? != 0
+    then
+        echo "The remote is unreachable if you have one"
+    else
+        git fetch
+        BRANCH_NAME=origin/master
+    fi
+fi
+
 # Generate the archive
 # In this case xz is better at archiving binary data, so that is used bzip2
-git bundle create $TARNAME master
+git bundle create $TARNAME $BRANCH_NAME
 xz $TARNAME
 # Update the tarname
 TARNAME=${TARNAME}.xz
