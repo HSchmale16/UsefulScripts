@@ -11,13 +11,17 @@
 #
 # This script requires the pramussan/gdrive tool in your path, and it should
 # be named or aliased to `drive`.
-#
-# Usage:
-# $0 <push|pull|help> <local-dir> <gdrive-dir>
 
+# print the script usage message
 function printScriptUsage() {
     echo "USAGE: "
-    echo "$0 <push|pull|help> <local-dir> <gdrive-dirname>"
+    echo "$0 <push|pull|help> ..."
+    echo
+    echo "push - push a directory to a google drive directory"
+    echo "    $0 push <local-dir> <gdrive-dir>"
+    echo "pull - pulls the changes from google drive to a local directory"
+    echo "    $0 pull <local-dir> <gdrive-dir>"
+    echo "help - display this help"
 }
 
 # check that the script has it's dependicies that it needs
@@ -31,10 +35,11 @@ function checkDepends() {
 }
 
 function dir-sync-push() {
+    echo pushing
 }
 
 function dir-sync-pull() {
-
+    echo pulling
 }
 
 # Check and Parse args
@@ -53,7 +58,7 @@ case $SCRIPTCMD in
         ;;
     *)
         echo Invalid Command
-        echo "For help run: $0 help [cmd]"
+        printScriptUsage
         exit
         ;;
 esac
