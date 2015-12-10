@@ -56,58 +56,10 @@ while($firstDate->add(days => 1) < $lastDate){
     }
 }
 
-my $json = JSON->new->allow_nonref;
-
-my %hash;
-
-$hash{cols} = [
-    {
-        type => 'string',
-        name => 'dates'
-    },
-    {
-        type => 'number',
-        name => 'Insertions'
-    },
-    {
-        type => 'number',
-        name => 'Deletions'
-    },
-    {
-        type => 'number',
-        name => 'Net Result'
-    }
-];
-$hash{data} = ();
-
-my $i = 0;
-foreach (sort keys %commits){
-    $hash{data}[$i] = [
-        $_, 
-        $commits{$_}{ins}, 
-        -$commits{$_}{del},
-        $commits{$_}{ins} - $commits{$_}{del}
-    ];
-    $i++;
+for my $c(sort keys %commits){
+    print $c,",",$commits{$c}{ins},",",$commits{$c}{del},"\n";
 }
 
-my $string = do{local $/; <main::DATA>};
-
-use Text::Template;
-my $templ = Text::Template->new(
-    SOURCE => $string,
-    TYPE => 'string',
-    DELIMITERS => ['{!', '!}']
-);
-my %vars = (
-    title => 'Insertions and Deletions',
-    subtitle => "Per day",
-    jsonstr => $json->encode(\%hash),
-);
-my $result = $templ->fill_in(HASH => \%vars);
-
- if (defined $result) { print $result }
-         else { die "Couldn't fill in template: $Text::Template::ERROR" }
 
 sub getDateTime {
     my ($ss,$mm,$hh,$day,$month,$year,$zone) = strptime($_[0]);
@@ -118,41 +70,4 @@ sub getDateTime {
         year  => ($year + 1900)
     );
 }
-
-
-__DATA__
-<html>
-<head>
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script type="text/javascript">
-    google.load('visualization', '1', {packages: ['corechart']});
-    google.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-
-      var data = new google.visualization.DataTable();
-      var json = {! $jsonstr !};
-
-      json.cols.forEach(function(e, i, a){data.addColumn(e.type, e.name)});
-      data.addRows(json.data);
-
-      var options = {
-        chart: {
-          title: '{! $title !}',
-          subtitle: '{! $subtitle !}'
-        },
-        width: 1000,
-        height: 600
-      };
-
-      var chart = new google.visualization.AreaChart(document.getElementById('line_top_x'));
-
-      chart.draw(data, options);
-    }
-  </script>
-</head>
-<body>
-  <div id="line_top_x"></div>
-</body>
-</html>
 

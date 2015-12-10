@@ -26,6 +26,9 @@ export VISUAL=vim
 # Set up piping to my xclipboard
 alias p2clip='xclip -selection c'
 
+# pandoc bash completion
+eval "$(pandoc --bash-completion)"
+
 # Parallel Make and other improvements to make
 export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
 alias make='time make'
