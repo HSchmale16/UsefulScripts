@@ -12,7 +12,7 @@
 use strict;
 use warnings;
 
-my @srcext = ("*.cpp", "*.c", "*.h", "*.hpp", "*.ino", "*.cxx");
+my @srcext = ("*.cpp", "*.c", "*.h", "*.hpp", "*.hh", "*.ino", "*.cxx");
 
 my $commLines = 0; # Lines that start with a comment symbol
 my $bothLines = 0; # Lines that have a comment and code
