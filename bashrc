@@ -48,6 +48,8 @@ case "$(uname)" in
 esac
 
 # Awesome Commit Message
+# sometimes I just fell like getting the commit out of the way and not
+# leaving a good one. This is mostly for personal projects.
 alias git-randcommit='git commit -am "$(curl -s http://whatthecommit.com/index.txt)"'
 
 # Removes cmake makefiles for a project.
@@ -55,7 +57,7 @@ function cmake-clean() {
     rm CMakeCache.txt
     rm -rf CMakeFiles
     rm -rf CMakeScripts
-    rm -Makefile
+    rm Makefile
     rm cmake_install.cmake
     rm install_manifest.txt
 }
