@@ -50,4 +50,12 @@ esac
 # Awesome Commit Message
 alias git-randcommit='git commit -am "$(curl -s http://whatthecommit.com/index.txt)"'
 
-
+# Removes cmake makefiles for a project.
+function cmake-clean() {
+    rm CMakeCache.txt
+    rm -rf CMakeFiles
+    rm -rf CMakeScripts
+    rm -Makefile
+    rm cmake_install.cmake
+    rm install_manifest.txt
+}
