@@ -47,6 +47,9 @@ case "$(uname)" in
         ;;
 esac
 
+# Clear Screen in THE WINDOWS WAY!
+alias cls=clear
+
 # Awesome Commit Message
 # sometimes I just fell like getting the commit out of the way and not
 # leaving a good one. This is mostly for personal projects.
