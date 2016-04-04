@@ -27,7 +27,7 @@ export VISUAL=vim
 alias p2clip='xclip -selection c'
 
 # pandoc bash completion, only if pandoc is installed
-if type -p pandoc 2>&1 /dev/null
+if ! hash pandoc 2>&1 /dev/null
 then
     eval "$(pandoc --bash-completion)"
 fi
@@ -51,6 +51,7 @@ case "$(uname)" in
 esac
 
 # Clear Screen in THE WINDOWS WAY!
+# This is the only good thing about windows
 alias cls=clear
 
 # Awesome Commit Message
