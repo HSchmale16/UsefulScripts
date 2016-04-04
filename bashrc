@@ -26,8 +26,11 @@ export VISUAL=vim
 # Set up piping to my xclipboard
 alias p2clip='xclip -selection c'
 
-# pandoc bash completion
-eval "$(pandoc --bash-completion)"
+# pandoc bash completion, only if pandoc is installed
+if type -p pandoc 2>&1 /dev/null
+then
+    eval "$(pandoc --bash-completion)"
+fi
 
 # Parallel Make and other improvements to make
 export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
@@ -64,3 +67,5 @@ function cmake-clean() {
     rm cmake_install.cmake
     rm install_manifest.txt
 }
+
+
