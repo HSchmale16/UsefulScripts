@@ -22,6 +22,9 @@
 # It is important to note that it will upload it to the `backup` folder in
 # gdrive creating it if the folder does not exist
 
+function getGitRoot() {
+    git rev-parse --show-toplevel
+}
 
 LOCALDIR=$1
 ENABLE_REMOTE_SYNC=$2
@@ -63,12 +66,13 @@ else
     fi
 fi
 
-# Begin the meat of the script
-DATE=$(date +%Y-%m-%d)
-TARNAME="/tmp/$(basename $LOCALDIR)-${DATE}.bundle"
-
+# Enter the git directory to run the git commands
 cd $LOCALDIR
 echo Enter $(pwd)
+
+# Name the the tar ball to upload
+DATE=$(date +%Y-%m-%d)
+TARNAME="/tmp/$(basename $(getGitRoot))-${DATE}.bundle"
 
 # Fetch the latest updates from the remote if there is one
 BRANCH_NAME=master
