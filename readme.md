@@ -14,4 +14,4 @@ Scripts that exist in the project root directory are good general
 purpose scripts that don't fit into the other directories.
 
 # License
-You may use this under the terms of the GPL v3.
+This repository is under the MIT license.
