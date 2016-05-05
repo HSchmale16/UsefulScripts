@@ -1,0 +1,11 @@
+{
+  "name": "linggraph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lingGraph.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henry J Schmale",
+  "license": "ISC"
+}
