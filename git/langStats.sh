@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 function getLangAtCommit() {
     git linguist stats --commit=$1 | tr -d '{}"' | tr , '\n'
 }
@@ -14,6 +16,6 @@ do
     commDate=$(getCommitDate $commit)
 
     echo $commDate $langs
-done | perl langStats-helper.pl
+done | perl $DIR/langStats-helper.pl
 
 
