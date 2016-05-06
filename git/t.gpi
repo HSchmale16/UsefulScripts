@@ -1,0 +1,4 @@
+set key invert reverse Left outside
+
+plot 't.csv' using (100.*$2/$
+
