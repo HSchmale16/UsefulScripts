@@ -1,4 +1,20 @@
-set key invert reverse Left outside
+# define the output format
+set terminal pngcairo size 800, 600 enhanced font 'Verdana,10'
+set output "langStats.png"
 
-plot 't.csv' using (100.*$2/$
+
+# set the input file
+file="langStats.csv"
+# Set the number of columns in the data set
+get_number_of_cols="awk -F, 'NR == 1 { print NF ; exit }' ".file
+nc=system(get_number_of_cols)
+
+# define a function to calculate the sum of a given section, and do
+# this recursively
+sum(c,C)=((c!=C)?column(c)+sum(c+1,C):column(c))
+
+set key outside
+set datafile separator ","
+plot for [i=nc:2:-1] file using 0:(100*sum(2,i)/sum(2,nc)):xtic(1) title columnhead(i) with filledcurve y=0
+
 
