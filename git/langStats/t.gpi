@@ -16,8 +16,10 @@ sum(c,C)=((c!=C)?column(c)+sum(c+1,C):column(c))
 set key outside
 set datafile separator ","
 # set the graph styling
-#set style fill pattern 2
-#set style histogram rowstacked
+set xtics border in scale 0,0 nomirror rotate by 90 offset
+set xdata time
+set timefmt "%s"
+set grid
 
 plot for [i=nc:2:-1] file using 0:(100*sum(2,i)/sum(2,nc)):xtic(1) title \
     columnhead(i) with filledcurves below x1
