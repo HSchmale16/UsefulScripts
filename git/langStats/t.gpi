@@ -1,5 +1,5 @@
 # define the output format
-set terminal pngcairo size 800, 600 enhanced font 'Verdana,10'
+set terminal pngcairo size 1000, 800 
 set output "langStats.png"
 
 
@@ -15,6 +15,11 @@ sum(c,C)=((c!=C)?column(c)+sum(c+1,C):column(c))
 
 set key outside
 set datafile separator ","
-plot for [i=nc:2:-1] file using 0:(100*sum(2,i)/sum(2,nc)):xtic(1) title columnhead(i) with filledcurve y=0
+# set the graph styling
+#set style fill pattern 2
+#set style histogram rowstacked
+
+plot for [i=nc:2:-1] file using 0:(100*sum(2,i)/sum(2,nc)):xtic(1) title \
+    columnhead(i) with filledcurves below x1
 
 
