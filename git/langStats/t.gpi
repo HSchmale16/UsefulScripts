@@ -1,0 +1,27 @@
+# define the output format
+set terminal pngcairo size 1000, 800 
+set output "langStats.png"
+
+
+# set the input file
+file="langStats.csv"
+# Set the number of columns in the data set
+get_number_of_cols="awk -F, 'NR == 1 { print NF ; exit }' ".file
+nc=system(get_number_of_cols)
+
+# define a function to calculate the sum of a given section, and do
+# this recursively
+sum(c,C)=((c!=C)?column(c)+sum(c+1,C):column(c))
+
+set key outside
+set datafile separator ","
+# set the graph styling
+set xtics border in scale 0,0 nomirror rotate by 90 offset
+set xdata time
+set timefmt "%s"
+set grid
+
+plot for [i=nc:2:-1] file using 0:(100*sum(2,i)/sum(2,nc)):xtic(1) title \
+    columnhead(i) with filledcurves below x1
+
+
