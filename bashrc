@@ -32,6 +32,10 @@ then
     eval "$(pandoc --bash-completion)"
 fi
 
+function copy-ssh-pub-key() {
+    cat ~/.ssh/id_rsa.pub | p2clip
+}
+
 # Parallel Make and other improvements to make
 export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
 alias make='time make'
