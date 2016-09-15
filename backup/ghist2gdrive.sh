@@ -13,6 +13,8 @@
 #
 # USAGE:
 # ./git2gdrive <LOCAL_DIR_TO_BKUP> [ANYTHING]
+d Title Size Created 0B-H8QBBX3MVOWGgzdG5Xc0hHS1k backup 0.0 B 2015-10-13
+16:17:53
 # 
 # If any thing is placed in the [ANYTHING] position then the remote sync
 # feature will be enabled and it will fetch updates from a remote. You can
@@ -31,8 +33,6 @@ ENABLE_REMOTE_SYNC=$2
 
 # Remote directory to place backups
 REMOTEDIR="backup"
-
-
 
 # Check that required programs are installed
 # Please see the note in the preamble(at the top) for the required
@@ -74,6 +74,7 @@ echo Enter $(pwd)
 DATE=$(date +%Y-%m-%d)
 TARNAME="/tmp/$(basename $(getGitRoot))-${DATE}.bundle"
 
+echo "TARNAME=$TARNAME"
 # Fetch the latest updates from the remote if there is one
 BRANCH_NAME=master
 if [ ! -z $ENABLE_REMOTE_SYNC ]
@@ -98,8 +99,9 @@ TARNAME=${TARNAME}.xz
 
 # Prepare to upload
 # Get the remote directory id to place the back up in.
-FOLDER_INFO=$(drive list | grep "$REMOTEDIR")
+FOLDER_INFO=$(drive list --title "$REMOTEDIR" | grep "$REMOTEDIR")
 echo Got Folder Info
+echo "$FOLDER_INFO"
 
 # Create backup folder if it does not exists yet and get the id of the
 # parent to place file in
@@ -113,4 +115,7 @@ else
 fi
 
 # Finally We can now upload the the backup tar to google drive
+echo "Upload to GDrive"
 drive upload -p "$PARENT_ID" -f "$TARNAME"
+
+
