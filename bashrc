@@ -41,6 +41,13 @@ export NUMCPUS=$(grep -c 'cpu cores' /proc/cpuinfo)
 alias make='time make'
 alias pmake='time make -j$NUMCPUS'
 
+function gmake() {
+    cdir=$(pwd)
+    cd $(git rev-parse --show-toplevel)
+    pmake
+    cd "$cdir"
+}
+
 case "$(uname)" in
     # Linux only things
     Linux)

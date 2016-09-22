@@ -13,8 +13,6 @@
 #
 # USAGE:
 # ./git2gdrive <LOCAL_DIR_TO_BKUP> [ANYTHING]
-d Title Size Created 0B-H8QBBX3MVOWGgzdG5Xc0hHS1k backup 0.0 B 2015-10-13
-16:17:53
 # 
 # If any thing is placed in the [ANYTHING] position then the remote sync
 # feature will be enabled and it will fetch updates from a remote. You can
@@ -91,7 +89,8 @@ then
 fi
 
 # Generate the archive
-# In this case xz is better at archiving binary data, so that is used bzip2
+# In this case xz is better at archiving binary data, so that is used 
+# instead of bzip2
 git bundle create $TARNAME $BRANCH_NAME
 xz $TARNAME
 # Update the tarname
