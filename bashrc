@@ -20,8 +20,6 @@ PS1=\
 '\[\e[0;32m\]\u@\h\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\]\[\e[1;37m\]'
 
 # Set my editor, which is vim.
-export EDITOR=vim
-export VISUAL=vim
 
 # Set up piping to my xclipboard
 alias p2clip='xclip -selection c'
@@ -80,4 +78,6 @@ function cmake-clean() {
     rm install_manifest.txt
 }
 
-
+function getBatteryPercent() {
+	upower -d | grep percent | tail -n1 | awk '{print $2}'
+}
