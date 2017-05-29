@@ -26,6 +26,10 @@ function getGitRoot() {
     git rev-parse --show-toplevel
 }
 
+function checkProgExists() {
+     hash $1 2>/dev/null || { echo >&2 "$1 required to execute script"; exit 1; }  
+}
+
 LOCALDIR=$1
 ENABLE_REMOTE_SYNC=$2
 
@@ -35,20 +39,8 @@ REMOTEDIR="backup"
 # Check that required programs are installed
 # Please see the note in the preamble(at the top) for the required
 # programs.
-if ! hash drive 2>&1 /dev/null
-then
-    echo \`drive\` is not in your path, add it to your path to use this \
-        script.
-    exit
-fi
-
-# You also need `git` to run this script
-if ! hash git 2>&1 /dev/null
-then
-    echo \`git\` is not installed. This is a required package for this \
-        script.
-    exit
-fi
+checkProgExists gdrive
+checkProgExists git
 
 # Input Verification
 # This stuff checks the arguements to the backup script.
@@ -98,7 +90,7 @@ TARNAME=${TARNAME}.xz
 
 # Prepare to upload
 # Get the remote directory id to place the back up in.
-FOLDER_INFO=$(drive list --title "$REMOTEDIR" | grep "$REMOTEDIR")
+FOLDER_INFO=$(gdrive list -q "name = '$REMOTEDIR'" | grep "$REMOTEDIR")
 echo Got Folder Info
 echo "$FOLDER_INFO"
 
@@ -107,7 +99,7 @@ echo "$FOLDER_INFO"
 if [ -z "$FOLDER_INFO" ]
 then
     echo Folder does not exist creating the folder
-    PARENT_ID=$(drive folder -t "$REMOTEDIR")
+    PARENT_ID=$(gdrive mkdir "$REMOTEDIR")
     PARENT_ID=$(echo $PARENT_ID | awk '{print $2}')
 else
     PARENT_ID=$(echo "$FOLDER_INFO" | awk '{print $1}' | head -1)
@@ -115,6 +107,6 @@ fi
 
 # Finally We can now upload the the backup tar to google drive
 echo "Upload to GDrive"
-drive upload -p "$PARENT_ID" -f "$TARNAME"
+gdrive upload -p "$PARENT_ID" "$TARNAME"
 
 
