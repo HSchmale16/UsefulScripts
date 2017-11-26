@@ -18,8 +18,8 @@ pmstats$del <- pmstats$del * -1
 df <- melt(as.data.frame(pmstats))
 df$date <- as.Date(df$date)
 
-ggplot(df, aes(x=date, y=value, color=variable)) +
-  geom_area(aes(fill=variable),
+ggplot() +
+  geom_area(aes(x=date, y=value,fill=variable),
             data = subset(df, variable %in% c('del', 'ins'))) +
   geom_line(aes(x=date, y=value),
            data = subset(df, variable == 'delta'))
