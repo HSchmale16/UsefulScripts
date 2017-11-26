@@ -10,6 +10,12 @@
 import subprocess
 from datetime import datetime
 
+def chomp_int(val):
+    try:
+        return int(val)
+    except ValueError:
+        return 0
+
 changes_by_date = {}
 git_log = subprocess.Popen(
     'git log --numstat --pretty="%at"',
@@ -27,7 +33,7 @@ for line in git_log.stdout:
             changes_by_date[str(date.date())] = day_changes
             day_changes = [0, 0]
     elif len(args) >= 3:
-        day_changes = [sum(x) for x in zip(day_changes, map(int, args[0:2]))]
+        day_changes = [sum(x) for x in zip(day_changes, map(chomp_int, args[0:2]))]
 
 print('date,ins,del')
 for key,vals in changes_by_date.items():
